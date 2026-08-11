@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ray_helper"
+dynamic = ["version", "readme"]
+dependencies = [    
+    "LogKeeper @ git+https://github.com/ptrajdos/LogKeeper.git",
+    "ray[default]",
+    "joblib",
+]
+requires-python = ">=3.10"
+authors = [
+  {name = "Pawel Trajdos", email = "pawel.trajdos@pwr.edu.pl"},
+]
+maintainers = [
+  {name = "Pawel Trajdos", email = "pawel.trajdos@pwr.edu.pl"}
+]
+description = "Helper functions for working with Ray"
+
+license = "BSD-3-Clause"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["ray"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+[project.optional-dependencies]
+test = [
+    'coverage>=7.8.0, <8.0.0',
+    'unittest-parallel>=1.7.5, <2.0.0',
+    'pandas>=2.0.0, <3.0.0',
+    'pdoc3>=0.11.1, <1.0.0',
+    'pytest>=8.3.5, <9.0.0',
+    'pytest-cov>=6.1.1, <7.0.0',
+    'pytest-profiling>=1.8.1, <2.0.0',
+    'pytest-xdist>=3.6.1, <4.0.0',
+    'snakeviz>=2.2.2, <3.0.0',
+    'pytest-timer>=1.0.0, <2.0.0',
+    'tox>=4.0.0, <5.0.0',
+]
+
+
+[tool.setuptools.dynamic]
+version = {attr = "ray_helper.__version__"}  # any module attribute compatible with ast.literal_eval
+readme = {file = ["README.md"]}
+
+[project.urls]
+Repository = "https://github.com/ptrajdos/ray_helper.git"
+
+[tool.setuptools]
+packages = { find = { include = ["ray_helper", "ray_helper.*"] } }
+
+#TODO starting head and worker scripts with cli args
+[project.scripts]
+experiment1 = "ray_helper.experiment1:main"
