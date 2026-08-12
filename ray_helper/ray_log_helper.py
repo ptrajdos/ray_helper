@@ -68,7 +68,7 @@ class RayLogKeeperHelper:
         if self._ray_forwarder_thread is not None:
             self._ray_forwarder_thread.start()
 
-    def stop(self):
+    def quit(self):
         if self._ray_forwarder_stop is not None:
             self._ray_forwarder_stop.set()
         if self._ray_forwarder_thread is not None:

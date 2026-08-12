@@ -55,3 +55,7 @@ packages = { find = { include = ["ray_helper", "ray_helper.*"] } }
 #TODO starting head and worker scripts with cli args
 [project.scripts]
 experiment1 = "ray_helper.experiment1:main"
+
+[tool.coverage.run]
+branch = true
+parallel = true
