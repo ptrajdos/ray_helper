@@ -12,3 +12,7 @@ def compute(name, queue):
     logger.debug(f"GG?: {name}")
     LogKeeper.shutdown_client_logger(logger)
     return name
+
+def worker(shared, x):
+    shared = shared.resolve()
+    return sum(shared) + x

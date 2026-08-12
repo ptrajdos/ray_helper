@@ -30,26 +30,3 @@ class SharedArg:
             return ray.get(self.ref)
 
         return self.obj
-
-
-def worker(shared_data, x):
-    data = shared_data.resolve()
-    return sum(data) + x
-
-
-if __name__ == "__main__":
-    ray.init()
-    register_ray()
-
-    big_data = list(range(1000000))
-    shared = SharedArg(big_data)
-
-    with joblib.parallel_backend("ray", n_jobs=4):
-        prepared = shared.prepare()
-
-        results = Parallel()(
-            delayed(worker)(shared, x)
-            for x in range(10)
-        )
-
-    print(results)

@@ -10,7 +10,6 @@ from ray_helper._test_utils import compute
 from log_keeper.log_keeper import LogKeeper
 import multiprocessing as mp
 import threading as th
-import tempfile
 from ray.util.joblib import register_ray
 
 
