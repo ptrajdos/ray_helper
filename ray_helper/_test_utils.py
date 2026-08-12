@@ -8,7 +8,7 @@ from log_keeper.log_keeper import LogKeeper
 
 
 def compute(name, queue):
-    logger = LogKeeper.get_client_logger(logging_queue=queue, logger_name="JLL")
+    logger = LogKeeper.get_client_logger(logging_queue=queue, logger_name=f"JLL_{name}")
     logger.debug(f"GG?: {name}")
     LogKeeper.shutdown_client_logger(logger)
     return name
