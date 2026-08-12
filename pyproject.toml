@@ -52,9 +52,10 @@ Repository = "https://github.com/ptrajdos/ray_helper.git"
 [tool.setuptools]
 packages = { find = { include = ["ray_helper", "ray_helper.*"] } }
 
-#TODO starting head and worker scripts with cli args
 [project.scripts]
-experiment1 = "ray_helper.experiment1:main"
+ray-head = "ray_helper.cli:ray_head"
+ray-worker = "ray_helper.cli:ray_worker"
+ray-stop = "ray_helper.cli:ray_stop"
 
 [tool.coverage.run]
 branch = true

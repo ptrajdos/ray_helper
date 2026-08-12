@@ -69,7 +69,7 @@ clean_tox:
 
 clean_covs:
 	rm -rf ${ROOTDIR}/.coverage.*
-#TODO move this to python scripts probably
+
 RAY_PORT ?= 6379
 RAY_DASHBOARD_PORT ?= 8265
 RAY_NUM_CPUS ?= 4
@@ -77,29 +77,14 @@ IP ?= 127.0.0.1
 RAY_MEMORY_GB ?= 10
 RAY_OBJECT_STORE_GB ?= 2
 
-RAY_MEMORY := $(shell echo "$$(( $(RAY_MEMORY_GB) * 1024 * 1024 * 1024 ))")
-RAY_OBJECT_STORE_MEMORY := $(shell echo "$$(( $(RAY_OBJECT_STORE_GB) * 1024 * 1024 * 1024 ))")
 # Start Ray head node (manager)
-ray-head:
-	$(UV) run ray stop || true
-	$(UV) run ray start --head \
-		--node-ip-address=$(IP) \
-		--port=$(RAY_PORT) \
-		--dashboard-host=0.0.0.0 \
-		--dashboard-port=$(RAY_DASHBOARD_PORT) \
-		--num-cpus=$(RAY_NUM_CPUS) \
-		--memory=$(RAY_MEMORY) \
-		--object-store-memory=$(RAY_OBJECT_STORE_MEMORY)
+ray-head: pypackages
+	$(UV) run ray-head --ip=$(IP) --port=$(RAY_PORT) --dashboard-port=$(RAY_DASHBOARD_PORT) --num-cpus=$(RAY_NUM_CPUS) --memory-gb=$(RAY_MEMORY_GB) --object-store-gb=$(RAY_OBJECT_STORE_GB)
 
 # Start Ray worker node
 # Usage: make ray-worker IP=<head-node-ip>
-ray-worker:
-	$(UV) run ray stop || true
-	$(UV) run ray start \
-		--address=$(IP):$(RAY_PORT) \
-		--num-cpus=$(RAY_NUM_CPUS) \
-		--memory=$(RAY_MEMORY) \
-		--object-store-memory=$(RAY_OBJECT_STORE_MEMORY)
+ray-worker: pypackages
+	$(UV) run ray-worker --ip=$(IP) --port=$(RAY_PORT) --num-cpus=$(RAY_NUM_CPUS) --memory-gb=$(RAY_MEMORY_GB) --object-store-gb=$(RAY_OBJECT_STORE_GB)
 
-ray-stop:
-	$(UV) run ray stop
+ray-stop: pypackages
+	$(UV) run ray-stop
