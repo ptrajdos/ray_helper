@@ -61,12 +61,14 @@ profile: pypackages
 tox_check: pypackages
 	$(UV) run ${TOX} -p ${TOX_CORES} 
 
-clean: clean_tox
+clean: clean_tox clean_covs
 	rm -rf .venv uv.lock
 
 clean_tox:
 	rm -rf ${TOXDIR}
 
+clean_covs:
+	rm -rf ${ROOTDIR}/.coverage.*
 #TODO move this to python scripts probably
 RAY_PORT ?= 6379
 RAY_DASHBOARD_PORT ?= 8265
