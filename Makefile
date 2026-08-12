@@ -62,7 +62,7 @@ tox_check: pypackages
 	$(UV) run ${TOX} -p ${TOX_CORES} 
 
 clean: clean_tox clean_covs
-	rm -rf .venv uv.lock
+	rm -rf .venv uv.lock ${INSTALL_LOG_FILE} ${LOGDIR} ${COVDIR} ${DOCS_DIR}
 
 clean_tox:
 	rm -rf ${TOXDIR}
